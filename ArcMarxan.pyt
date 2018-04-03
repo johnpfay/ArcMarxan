@@ -540,7 +540,7 @@ class Features(object):
         # create puvsp order
         sList = list(numpy.sort(npArray, order=['pu','species']))
         # write results
-        puf = file(puvFName, 'w')
+        puf = open(puvFName, 'w')
         puf.write("species\tpu\tamount\n")
         for rec in sList:
             puf.write('%d\t%d\t%f\n' % (rec[0],rec[1],rec[2]))
@@ -548,7 +548,7 @@ class Features(object):
         # create puvsp_sporder order
         sList = list(numpy.sort(npArray,order=['species','pu']))
         # write results
-        spf = file(puvSFname, 'w')
+        spf = open(puvSFname, 'w')
         spf.write("species\tpu\tamount\n")
         for rec in sList:
             spf.write('%d\t%d\t%f\n' % (rec[0],rec[1],rec[2]))
@@ -766,7 +766,7 @@ class SelectedSummary(object):
             specRecs = {}
             for specLine in contents:
                 vals = specLine.strip().split(dialect.delimiter)
-                if vals[0] <> 'id':
+                if vals[0] != 'id':
                     specRecs[int(vals[0])] = vals[5]
         else:
             raise Exception
