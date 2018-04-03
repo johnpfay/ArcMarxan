@@ -647,7 +647,9 @@ class PlanningUnits(object):
                 fld_string = fld_string + ';' + fld.name
         puList = []
         for row in arcpy.da.SearchCursor(pu_layer,flds):
-            puList.append([int(row[flds.index(pu_field)]),float(row[flds.index(cost_field)]),int(row[flds.index(status_field)])])
+            cost = row[flds.index(cost_field)]
+            if not cost: cost = 0
+            if not status: status = 0
         # sort by puid and write file
         puList.sort()
         oFileName = os.path.join(marxan_input_folder,'pu.dat')
