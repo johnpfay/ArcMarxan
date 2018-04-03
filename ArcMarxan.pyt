@@ -532,7 +532,10 @@ class Features(object):
         # step through file and put data into unordered list
         for row in arcpy.da.SearchCursor(pu_layer,flds):
             for rec in fieldRefList:
-                if float(row[flds.index(rec[1])]) > 0:
+                #If abundance is Null, set to 0
+                if not row[flds.index(rec[1])]:
+                    unOrdered.append((rec[0],int(row[flds.index(pu_field)]),0))
+                elif float(row[flds.index(rec[1])]) > 0:
                     unOrdered.append((rec[0],int(row[flds.index(pu_field)]),float(row[flds.index(rec[1])])))
         # use numpy to sort it quickly
         dtype = [('species', int),('pu', int),('amount', float)]
